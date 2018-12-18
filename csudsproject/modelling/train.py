@@ -64,6 +64,8 @@ os.makedirs('outputs', exist_ok=True)
 # File saved in the outputs folder is automatically uploaded into experiment record
 print("File saved in the outputs folder is automatically uploaded into experiment record")
 joblib.dump(value=clf, filename='outputs/csu_sklearn_mnist_model.pkl')
+
+#Register the model in the Model Managment of azure ml service workspace
 model = run.register_model(model_name='csu_sklearn_mnist', model_path='outputs/csu_sklearn_mnist_model.pkl')
 print(model.name, model.id, model.version, sep = '\t')
 

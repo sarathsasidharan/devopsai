@@ -10,6 +10,7 @@ from azureml.core.model import Model
 def init():
     global model
     # retreive the path to the model file using the model name
+    # This needs to be the name of your model you registered in EstimatorTrigger.py
     model_path = Model.get_model_path('csu_sklearn_mnist')
     model = joblib.load(model_path)
 

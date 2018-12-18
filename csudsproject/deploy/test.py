@@ -9,11 +9,23 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 from azureml.core import Workspace, Run
 from azureml.core.webservice import Webservice
 
-spn = ServicePrincipalAuthentication("72f988bf-86f1-41af-91ab-2d7cd011db47", "2d78ca87-de7e-437c-bfaf-e75d38a81398", "UlsxrsSkkTl2JO1t4NKGcgdN3AEXxm2fgYkqITi7vfQ=")
+# Define Vars < Change the vars>
+tenant_id="<Enter Your Tenant Id>"
+app_id="<Application Id of the SPN you Create>"
+app_key= "<Key for the SPN>"
+workspace="<Name of your workspace>"
+subscription_id="<Subscription id>"
+resource_grp="<Name of your resource group where aml service is created>"
+experiment_name='<Name of your experiment you defined in dataprep.py>'
+
+print("Starting trigger engine")
+# Start creating 
+# Point file to conf directory containing details for the aml service
+spn = ServicePrincipalAuthentication(tenant_id,app_id,app_key)
 ws = Workspace(auth = spn,
-            workspace_name = "amlservices",
-            subscription_id = "5c667bbb-a09e-4d96-bfe6-6659ade1e2cc",
-            resource_group = "amlservices")
+            workspace_name = workspace,
+            subscription_id = subscription_id,
+            resource_group = resource_grp)
 print(ws.name, ws._workspace_name, ws.resource_group, ws.location, sep = '\t')
 
 service= Webservice(ws,'sklearn-mnist-svc')

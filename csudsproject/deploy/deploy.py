@@ -13,13 +13,23 @@ print("Azure ML SDK Version: ", azureml.core.VERSION)
 from azureml.core import Workspace
 from azureml.core.model import Model
 
+# Define Vars < Change the vars>
+tenant_id="<Enter Your Tenant Id>"
+app_id="<Application Id of the SPN you Create>"
+app_key= "<Key for the SPN>"
+workspace="<Name of your workspace>"
+subscription_id="<Subscription id>"
+resource_grp="<Name of your resource group where aml service is created>"
+
 print("Starting to download the model file")
-spn = ServicePrincipalAuthentication("72f988bf-86f1-41af-91ab-2d7cd011db47", "2d78ca87-de7e-437c-bfaf-e75d38a81398", "UlsxrsSkkTl2JO1t4NKGcgdN3AEXxm2fgYkqITi7vfQ=")
+    
+# Start creating 
+# Point file to conf directory containing details for the aml service
+spn = ServicePrincipalAuthentication(tenant_id,app_id,app_key)
 ws = Workspace(auth = spn,
-            workspace_name = "amlservices",
-            subscription_id = "5c667bbb-a09e-4d96-bfe6-6659ade1e2cc",
-            resource_group = "amlservices")
-print(ws.name, ws._workspace_name, ws.resource_group, ws.location, sep = '\t')
+            workspace_name = workspace,
+            subscription_id = subscription_id,
+            resource_group = resource_grp)
 model=Model(ws,'csu_sklearn_mnist')
 model.download(target_dir = '.')
 import os 
