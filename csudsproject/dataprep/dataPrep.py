@@ -43,8 +43,6 @@ aml_compute.create_aml_compute(ws)
 load_data = LoadData()
 print("Started to download data from source")
 load_data.download_data()
-print("Split up into train and test data")
-x_train,y_train,x_test,y_test= load_data.train_test_split()
 
 #Upload Data to cloud / onto the ws default store , you could use your own ADLS if required
 print("Started uploading data to blob storage")
